@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/repositoryItem"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/repository_height"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/repository_corner_radius"
+    app:cardElevation="@dimen/repository_card_elevation"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/repository_margin">
+
+        <TextView
+            android:id="@+id/repository_name"
+            style="@style/repository_name_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/repository_owner_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/repository_name">
+
+            <ImageView
+                android:id="@+id/repository_owner_photo"
+                android:layout_width="@dimen/repository_owner_photo_width"
+                android:layout_height="@dimen/repository_owner_photo_height"
+                android:contentDescription="@string/image_from_repo_owner"
+                android:padding="@dimen/repository_margin"
+                android:src="@drawable/ic_image_place_holder" />
+
+            <TextView
+                android:id="@+id/repository_owner_name"
+                style="@style/repository_owner_name_style"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="@dimen/repository_margin"
+                android:text="@string/owner_name" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/repository_stargazers_count"
+            style="@style/repository_detail_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/starts"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repository_owner_info" />
+
+        <TextView
+            android:id="@+id/repository_forks_count"
+            style="@style/repository_detail_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forks"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/repository_owner_info" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

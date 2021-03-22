@@ -1,11 +1,12 @@
-package com.jss.githubtopstars
+package com.jss.githubtopstars.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.jss.githubtopstars.R
 
-class MainActivity : AppCompatActivity() {
+class RepoListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_repo_list)
     }
 }

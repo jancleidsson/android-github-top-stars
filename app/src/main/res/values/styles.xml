@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="repository_name_style">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="repository_owner_name_style">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="repository_detail_style">
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>

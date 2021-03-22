@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Github Top Stars</string>
+    <string name="name">Name</string>
+    <string name="owner_name">Owner Name</string>
+    <string name="image_from_repo_owner">Image from repository Owner</string>
+    <string name="starts">Starts:</string>
+    <string name="forks">Forks:</string>
 </resources>
