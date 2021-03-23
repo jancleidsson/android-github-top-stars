@@ -56,11 +56,17 @@ dependencies {
     //add viewmodel and lifecycle
     implementation "android.arch.lifecycle:extensions:$lifecycle_extensions_version"
 
+    //add recyclerview
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+
     //add dagger for di
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    //add glide for image loading
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 
     //add test dependencies
     testImplementation "junit:junit:$junit_version"

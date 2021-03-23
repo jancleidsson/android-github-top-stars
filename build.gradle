@@ -11,6 +11,8 @@ ext {
     lifecycle_extensions_version = '1.1.1'
     //paging_runtime_version = '1.0.1'
     dagger_version = '2.14.1'
+    recyclerview_version = '1.1.0'
+    glide_version = '4.8.0'
 }
 
 buildscript {
