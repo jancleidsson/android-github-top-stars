@@ -47,7 +47,7 @@ dependencies {
     implementation project(':core')
 
     //add paging library
-    //implementation "android.arch.paging:runtime:$paging_runtime_version"
+    implementation "android.arch.paging:runtime:$paging_runtime_version"
 
     //add coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
@@ -67,6 +67,14 @@ dependencies {
 
     //add glide for image loading
     implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    //add retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //add okhttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version"
 
     //add test dependencies
     testImplementation "junit:junit:$junit_version"

@@ -7,41 +7,44 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jss.githubtopstars.R
 import com.jss.githubtopstars.databinding.ActivityRepoListBinding
+import com.jss.githubtopstars.framework.networking.State
 import com.jss.githubtopstars.framework.vm.RepoListViewModel
 
 class ReposListActivity : AppCompatActivity() {
 
     private lateinit var viewModel: RepoListViewModel
     private lateinit var binding: ActivityRepoListBinding
-    private val reposListAdapter = ReposListAdapter(arrayListOf())
+    private var reposListAdapter = ReposPagedListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repo_list)
-
         binding = ActivityRepoListBinding.inflate(layoutInflater)
+        initAdapter()
+        observeViewModel()
+        setContentView(binding.root)
+    }
+
+    private fun initAdapter() {
         binding.repoListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = reposListAdapter
         }
-
-        setContentView(binding.root)
-        observeViewModel()
     }
 
     private fun observeViewModel() {
         viewModel = ViewModelProviders.of(this).get(RepoListViewModel::class.java)
-        viewModel.getRepositories()
-        viewModel.reposList.observe(this, { repositories ->
-            repositories?.let {
-                binding.repoListRecyclerView.visibility = View.VISIBLE
-                reposListAdapter.updateRepos(repositories)
-            }
+
+        viewModel.getRepoList().observe(this, {
+            reposListAdapter.submitList(it)
         })
 
-        viewModel.loading.observe(this, { loading ->
-            binding.loading.visibility = if (loading) View.VISIBLE else View.GONE
-            binding.repoListRecyclerView.visibility =  if (loading) View.GONE else View.VISIBLE
+        viewModel.getState().observe(this, { state ->
+            binding.loading.visibility = if (state == State.LOADING) View.VISIBLE else View.GONE
+            binding.repoListRecyclerView.visibility = if (state == State.DONE || state == State.ERROR) View.VISIBLE else View.GONE
+            if (!viewModel.listIsEmpty()) {
+                reposListAdapter.setState(state ?: State.DONE)
+            }
         })
     }
 }

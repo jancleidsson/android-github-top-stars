@@ -9,10 +9,13 @@ ext {
     espresso_core_version = '3.3.0'
     coroutines_version = '1.4.2-native-mt'
     lifecycle_extensions_version = '1.1.1'
-    //paging_runtime_version = '1.0.1'
+    paging_runtime_version = '2.1.2'
     dagger_version = '2.14.1'
     recyclerview_version = '1.1.0'
     glide_version = '4.8.0'
+    retrofit_version = '2.9.0'
+    okhttp_version = '4.9.0'
+    okhttp_logging_interceptor_version = '4.8.1'
 }
 
 buildscript {
