@@ -5,4 +5,5 @@
     <string name="image_from_repo_owner">Image from repository Owner</string>
     <string name="starts">Starts:</string>
     <string name="forks">Forks:</string>
+    <string name="fetch_data_error">Failed to fetch data.</string>
 </resources>

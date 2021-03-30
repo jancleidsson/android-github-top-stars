@@ -11,6 +11,7 @@ class UsesCasesModule {
 
     @Provides
     fun getUseCases(repository: RepoRepository) = UseCases(
-        GetAllRepositories(repository)
+        GetAllRepositories(repository),
+        AddAllRepositories(repository)
     )
 }
