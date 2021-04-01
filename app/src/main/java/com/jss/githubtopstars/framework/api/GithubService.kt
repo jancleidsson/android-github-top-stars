@@ -1,4 +1,4 @@
-package com.jss.githubtopstars.framework.networking
+package com.jss.githubtopstars.framework.api
 
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
@@ -9,17 +9,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface GitHubApi {
+interface GithubService {
 
     @GET("search/repositories?q=language:kotlin")
     suspend fun getRepositories(
             @Query("sort") sort: String? = "stars",
             @Query("page") page: Int = 1
-    ): Response<ResponseGitHubApi>
+    ): Response<ReposResponseApi>
 
     companion object {
         private const val BASE_URL = "https://api.github.com"
-        fun create(): GitHubApi {
+        fun create(): GithubService {
             val logger = HttpLoggingInterceptor()
             logger.level = HttpLoggingInterceptor.Level.BASIC
 
@@ -31,7 +31,7 @@ interface GitHubApi {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(GitHubApi::class.java)
+                .create(GithubService::class.java)
         }
     }
 }

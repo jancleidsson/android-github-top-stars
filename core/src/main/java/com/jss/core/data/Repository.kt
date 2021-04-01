@@ -9,7 +9,5 @@ data class Repository(
         var stars: Int = 0,
         @SerializedName("forks_count")
         var forks: Int = 0,
-        @SerializedName("owner")
-        var owner: Owner? = null,
         val repositoryId: Long = 0
 )

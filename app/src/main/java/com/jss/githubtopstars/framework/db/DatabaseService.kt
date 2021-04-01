@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.jss.githubtopstars.core.data.Repo
 
-@Database(entities = [RepositoryEntity::class], version = 1, exportSchema = false)
+@Database(entities = [Repo::class], version = 1, exportSchema = false)
 abstract class DatabaseService: RoomDatabase() {
 
     companion object {
@@ -22,5 +23,5 @@ abstract class DatabaseService: RoomDatabase() {
                 (instance ?: create(context)).also { instance = it }
     }
 
-    abstract fun repositoryDao(): RepositoryDao
+    abstract fun repositoryDao(): RepoDao
 }

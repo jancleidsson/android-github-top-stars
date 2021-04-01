@@ -44,9 +44,6 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
-    //add core module
-    implementation project(':core')
-
     //add paging library
     implementation "androidx.paging:paging-runtime:$paging_version"
 
