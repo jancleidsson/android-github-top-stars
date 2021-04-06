@@ -14,6 +14,9 @@ interface RepoDao {
     suspend fun addRepos(reposList: List<Repo>)
 
     @Transaction
-    @Query("SELECT * FROM 'repository'")
+    @Query("SELECT * FROM repository ORDER BY stars DESC")
     fun getRepos(): PagingSource<Int, Repo>
+
+    @Query("DELETE FROM repository")
+    suspend fun deleteAllRepos()
 }

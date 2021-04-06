@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.jss.githubtopstars.core.data.PageIndex
 import com.jss.githubtopstars.core.data.Repo
 
-@Database(entities = [Repo::class], version = 1, exportSchema = false)
-abstract class DatabaseService: RoomDatabase() {
+@Database(entities = [Repo::class, PageIndex::class], version = 1, exportSchema = false)
+abstract class DatabaseService : RoomDatabase() {
 
     companion object {
-        private const val DATABASE_NAME = "note.db"
+        private const val DATABASE_NAME = "repository.db"
 
         private var instance: DatabaseService? = null
 
@@ -20,8 +21,12 @@ abstract class DatabaseService: RoomDatabase() {
                         .build()
 
         fun getInstance(context: Context): DatabaseService =
-                (instance ?: create(context)).also { instance = it }
+                instance ?: synchronized(this) {
+                    instance ?: create(context).also { instance = it }
+                }
     }
 
     abstract fun repositoryDao(): RepoDao
+
+    abstract fun pageIndexDao(): PageIndexDao
 }

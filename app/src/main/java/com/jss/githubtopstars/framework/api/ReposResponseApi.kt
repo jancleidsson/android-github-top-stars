@@ -5,9 +5,9 @@ import com.jss.githubtopstars.core.data.Repo
 
 data class ReposResponseApi(
         @SerializedName("total_count")
-        var totalCount: Int,
+        var totalCount: Int = 0,
         @SerializedName("incomplete_results")
         var incompleteResults: Boolean,
         @SerializedName("items")
-        var items: List<Repo>
+        var items: List<Repo> = emptyList(),
 )

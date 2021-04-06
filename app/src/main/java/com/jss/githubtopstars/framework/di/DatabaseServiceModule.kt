@@ -8,7 +8,6 @@ import javax.inject.Singleton
 
 @Module
 class DatabaseServiceModule {
-
     @Provides
     @Singleton
     fun provideDatabase(app: Application) = DatabaseService.getInstance(app)

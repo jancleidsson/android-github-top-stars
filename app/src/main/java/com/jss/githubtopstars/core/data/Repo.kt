@@ -7,15 +7,15 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "repository")
 data class Repo(
-    @PrimaryKey(autoGenerate = true)
-    @SerializedName("id")
-    val id: Long,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("stargazers_count")
-    val stars: Int,
-    @SerializedName("forks_count")
-    val forks: Int,
-    @Embedded
-    val owner: Owner
+        @PrimaryKey
+        @SerializedName("id")
+        val id: Long,
+        @SerializedName("name")
+        val name: String,
+        @SerializedName("stargazers_count")
+        val stars: Int,
+        @SerializedName("forks_count")
+        val forks: Int,
+        @Embedded
+        val owner: Owner
 )

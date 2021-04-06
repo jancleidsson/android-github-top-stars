@@ -6,4 +6,6 @@
     <string name="starts">Starts:</string>
     <string name="forks">Forks:</string>
     <string name="fetch_data_error">Failed to fetch data.</string>
+    <string name="retry">Retry</string>
+    <string name="repos_list_load_state">Repos list load State.</string>
 </resources>

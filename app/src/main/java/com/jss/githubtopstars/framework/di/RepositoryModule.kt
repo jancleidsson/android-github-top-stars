@@ -1,6 +1,5 @@
 package com.jss.githubtopstars.framework.di
 
-import android.app.Application
 import androidx.paging.ExperimentalPagingApi
 import com.jss.githubtopstars.core.repository.RepoRepository
 import com.jss.githubtopstars.framework.api.GithubService
@@ -12,7 +11,6 @@ import dagger.Provides
 @Module
 @ExperimentalPagingApi
 class RepositoryModule {
-
     @Provides
     fun provideRepository(githubService: GithubService, database: DatabaseService) =
         RepoRepository(ReposDataSource(githubService, database))
