@@ -41,9 +41,10 @@ class ReposRemoteMediator(
         }
 
         try {
-            val response = service.getRepositories(null, currentPageIndex, state.config.pageSize)
+            val response = service.getRepositories(page = currentPageIndex, itemsPerPage = state.config.pageSize)
             val reposList = response.items
             val endOfPagination = reposList.isEmpty()
+
             database.withTransaction {
                 //Clearing cache after refresh
                 if (loadType == LoadType.REFRESH) {

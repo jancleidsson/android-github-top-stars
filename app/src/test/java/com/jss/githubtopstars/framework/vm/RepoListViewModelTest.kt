@@ -1,24 +1,24 @@
 package com.jss.githubtopstars.framework.vm
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import com.jss.githubtopstars.core.data.Repo
 import com.jss.githubtopstars.core.usecase.GetAllRepos
 import com.jss.githubtopstars.framework.UseCases
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.single
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 
+@ExperimentalCoroutinesApi
 @ExperimentalPagingApi
 class RepoListViewModelTest {
 
@@ -41,7 +41,7 @@ class RepoListViewModelTest {
     }
 
     @Test
-    fun getReposList_returnAllRepos() = runBlocking {
+    fun getReposList_returnAllRepos() = runBlockingTest {
         val repoListFlow = flow{
             delay(10)
             emit(repoListPageData)

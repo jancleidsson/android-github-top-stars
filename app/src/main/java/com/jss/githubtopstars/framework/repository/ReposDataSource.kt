@@ -13,18 +13,17 @@ import kotlinx.coroutines.flow.Flow
 
 @ExperimentalPagingApi
 class ReposDataSource(
-        private val service: GithubService,
-        private val database: DatabaseService,
+    private val service: GithubService,
+    private val database: DatabaseService,
 ) : RepoDataSource {
 
-    var repoPager: Pager<Int, Repo>
+    private var repoPager: Pager<Int, Repo>
 
     init {
-        val pagingConfig = PagingConfig(pageSize = Constants.GITHUB_PAGE_SIZE, enablePlaceholders = false)
+        val pagingConfig = PagingConfig(Constants.GITHUB_PAGE_SIZE, enablePlaceholders = false)
         val reposRemoteMediator = ReposRemoteMediator(this.service, this.database)
         val pagingSourceFactory = { database.repositoryDao().getRepos() }
-        repoPager =
-                Pager(pagingConfig, null, remoteMediator = reposRemoteMediator, pagingSourceFactory)
+        repoPager = Pager(config = pagingConfig, remoteMediator = reposRemoteMediator, pagingSourceFactory = pagingSourceFactory)
     }
 
     override fun getAll(): Flow<PagingData<Repo>> = repoPager.flow
