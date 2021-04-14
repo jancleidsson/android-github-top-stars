@@ -4,24 +4,26 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jss.githubtopstars.R
 import com.jss.githubtopstars.databinding.ReposListActivityBinding
+import com.jss.githubtopstars.framework.di.ApplicationModule
+import com.jss.githubtopstars.framework.di.DaggerApplicationComponent
 import com.jss.githubtopstars.framework.vm.RepoListViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalPagingApi
 class ReposListActivity : AppCompatActivity() {
 
-    private val viewMode by lazy {
-        ViewModelProviders.of(this).get(RepoListViewModel::class.java)
-    }
+    @Inject
+    lateinit var viewMode: RepoListViewModel
+
     private val binding by lazy {
         ReposListActivityBinding.inflate(layoutInflater)
     }
@@ -35,10 +37,17 @@ class ReposListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.repos_list_activity)
         setContentView(binding.root)
-
+        buildDagger()
         initAdapter()
         getRepos()
         binding.retryButton.setOnClickListener { reposListAdapter.retry() }
+    }
+
+    private fun buildDagger() {
+        DaggerApplicationComponent.builder()
+                .applicationModule(ApplicationModule(application))
+                .build()
+                .inject(this)
     }
 
     private fun initAdapter() {

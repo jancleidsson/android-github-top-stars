@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.jss.githubtopstars.core.data.Repo
-import com.jss.githubtopstars.core.repository.RepositoryDataSource
+import com.jss.githubtopstars.core.repository.RepoDataSource
 import com.jss.githubtopstars.framework.api.GithubService
 import com.jss.githubtopstars.framework.db.DatabaseService
 import com.jss.githubtopstars.utils.Constants
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 class ReposDataSource(
         private val service: GithubService,
         private val database: DatabaseService,
-) : RepositoryDataSource {
+) : RepoDataSource {
 
     var repoPager: Pager<Int, Repo>
 

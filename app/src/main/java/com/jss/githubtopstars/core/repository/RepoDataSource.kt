@@ -4,6 +4,6 @@ import androidx.paging.PagingData
 import com.jss.githubtopstars.core.data.Repo
 import kotlinx.coroutines.flow.Flow
 
-interface RepositoryDataSource {
+interface RepoDataSource {
     fun getAll(): Flow<PagingData<Repo>>
 }

@@ -19,21 +19,26 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    buildTypes.release {
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding = true
+    }
+
+    testOptions.unitTests {
+        includeAndroidResources = true
     }
 }
 
@@ -44,51 +49,75 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
 
-    //add paging library
+    //Paging library
     implementation "androidx.paging:paging-runtime:$paging_version"
 
-    //add coroutines
+    //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
-    //add viewmodel and lifecycle
+    //Viewmodel and lifecycle
     implementation "android.arch.lifecycle:extensions:$lifecycle_extensions_version"
 
-    //add recyclerview
+    //Recyclerview
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
 
-    //add dagger for di
+    //Dagger for di
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-    //add glide for image loading
+    //Glide for image loading
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
-    //add retrofit
+    //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    //add okhttp
+    //Okhttp
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version"
 
-    //add room
+    //Room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4_version"
     implementation "androidx.room:room-ktx:$room_version"
 
-    //add data store
+    //Data store
     implementation "androidx.datastore:datastore:$data_store_version"
 
-    //add multdex
+    //Multdex
     implementation "androidx.multidex:multidex:$multidex_version"
 
-    //add test dependencies
+    // ----- Test dependencies ------
+    //Robolectric environment
+    testImplementation "androidx.test:core-ktx:$test_core_version"
+    testImplementation "androidx.arch.core:core-testing:$arch_testing_version"
+
+    //Mockito framework
+    testImplementation "org.mockito:mockito-core:$mockito_core_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
+
+    //Truth framework
+    testImplementation "com.google.truth:truth:$truth_version"
+
+    //Hamcrest
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrest_version"
+
+    //Robolectric
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+
+    //Coroutines Test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
+
+    //JUnit
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
+
+    //Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "androidx.test:runner:$test_runner_version"
 }
