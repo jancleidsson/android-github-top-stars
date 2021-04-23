@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "page_index")
-class PageIndex(
+data class PageIndex(
         @PrimaryKey val repoId: Long,
         val prevPageIndex: Int?,
         val nextPageIndex: Int?

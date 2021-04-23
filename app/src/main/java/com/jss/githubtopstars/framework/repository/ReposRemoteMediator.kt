@@ -1,5 +1,6 @@
 package com.jss.githubtopstars.framework.repository
 
+import androidx.annotation.VisibleForTesting
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -44,16 +45,17 @@ class ReposRemoteMediator(
             val response = service.getRepositories(page = currentPageIndex, itemsPerPage = state.config.pageSize)
             val reposList = response.items
             val endOfPagination = reposList.isEmpty()
-
-            database.withTransaction {
-                //Clearing cache after refresh
-                if (loadType == LoadType.REFRESH) {
-                    database.repositoryDao().deleteAllRepos()
-                    database.pageIndexDao().deleteAllPageIndexes()
+            if (endOfPagination.not()) {
+                database.withTransaction {
+                    //Clearing cache after refresh
+                    if (loadType == LoadType.REFRESH) {
+                        database.repositoryDao().deleteAllRepos()
+                        database.pageIndexDao().deleteAllPageIndexes()
+                    }
+                    val pageIndexesList = generatePageIndexesFromReposLists(reposList, currentPageIndex, endOfPagination)
+                    database.pageIndexDao().addPageIndexes(pageIndexesList)
+                    database.repositoryDao().addRepos(reposList)
                 }
-                val pageIndexesList = generatePageIndexesFromReposLists(reposList, currentPageIndex, endOfPagination)
-                database.pageIndexDao().addPageIndexes(pageIndexesList)
-                database.repositoryDao().addRepos(reposList)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPagination)
         } catch (exception: IOException) {
@@ -63,7 +65,8 @@ class ReposRemoteMediator(
         }
     }
 
-    private suspend fun getPageIndexClosestToCurrentPosition(
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun getPageIndexClosestToCurrentPosition(
             state: PagingState<Int, Repo>,
     ): PageIndex? {
         return state.anchorPosition?.let { position ->
@@ -73,21 +76,24 @@ class ReposRemoteMediator(
         }
     }
 
-    private suspend fun getPageIndexForFirstItem(state: PagingState<Int, Repo>): PageIndex? {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun getPageIndexForFirstItem(state: PagingState<Int, Repo>): PageIndex? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
                 ?.let { repo ->
                     database.pageIndexDao().pageIndexByRepoId(repo.id)
                 }
     }
 
-    private suspend fun getPageIndexForLastItem(state: PagingState<Int, Repo>): PageIndex? {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    suspend fun getPageIndexForLastItem(state: PagingState<Int, Repo>): PageIndex? {
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
                 ?.let { repo ->
                     database.pageIndexDao().pageIndexByRepoId(repo.id)
                 }
     }
 
-    private fun generatePageIndexesFromReposLists(reposList: List<Repo>, currentPageIndex: Int, endOfPagination: Boolean): List<PageIndex> {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun generatePageIndexesFromReposLists(reposList: List<Repo>, currentPageIndex: Int, endOfPagination: Boolean): List<PageIndex> {
         val prevKey = if (currentPageIndex == Constants.GITHUB_STARTING_PAGE_INDEX) null else currentPageIndex.minus(1)
         val nextKey = if (endOfPagination) null else currentPageIndex.plus(1)
         return reposList.map { repo ->

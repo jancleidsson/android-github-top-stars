@@ -2,29 +2,14 @@ package com.jss.githubtopstars.framework.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.jss.githubtopstars.core.data.Repo
 import com.jss.githubtopstars.core.repository.RepoDataSource
-import com.jss.githubtopstars.framework.api.GithubService
-import com.jss.githubtopstars.framework.db.DatabaseService
-import com.jss.githubtopstars.utils.Constants
 import kotlinx.coroutines.flow.Flow
 
 @ExperimentalPagingApi
 class ReposDataSource(
-    private val service: GithubService,
-    private val database: DatabaseService,
-) : RepoDataSource {
-
     private var repoPager: Pager<Int, Repo>
-
-    init {
-        val pagingConfig = PagingConfig(Constants.GITHUB_PAGE_SIZE, enablePlaceholders = false)
-        val reposRemoteMediator = ReposRemoteMediator(this.service, this.database)
-        val pagingSourceFactory = { database.repositoryDao().getRepos() }
-        repoPager = Pager(config = pagingConfig, remoteMediator = reposRemoteMediator, pagingSourceFactory = pagingSourceFactory)
-    }
-
+) : RepoDataSource {
     override fun getAll(): Flow<PagingData<Repo>> = repoPager.flow
 }

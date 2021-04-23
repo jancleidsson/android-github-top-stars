@@ -15,7 +15,7 @@ interface GithubService {
     suspend fun getRepositories(
             @Query("sort") sort: String? = "stars",
             @Query("page") page: Int? = Constants.GITHUB_STARTING_PAGE_INDEX,
-            @Query("per_page") itemsPerPage: Int? = Constants.GITHUB_PAGE_SIZE,
+            @Query("per_page") itemsPerPage: Int? = Constants.GITHUB_PAGE_SIZE
     ): ReposResponseApi
 
     companion object {
