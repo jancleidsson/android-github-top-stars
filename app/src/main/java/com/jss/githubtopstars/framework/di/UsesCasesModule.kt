@@ -9,7 +9,5 @@ import dagger.Provides
 @Module
 class UsesCasesModule {
     @Provides
-    fun getUseCases(repository: RepoRepository) = UseCases(
-        GetAllRepos(repository)
-    )
+    fun getUseCases(repository: RepoRepository) = UseCases(GetAllRepos(repository))
 }

@@ -15,12 +15,9 @@ import org.mockito.Mockito
 
 @ExperimentalCoroutinesApi
 class RepoRepositoryTest {
-
-    @Mock
-    private val repo = Mockito.mock(Repo::class.java)
-
     @Test
     fun getAll_returnsReposPageDataFlow() = runBlockingTest {
+        val repo = Mockito.mock(Repo::class.java)
         val fakePagingData = PagingData.from(listOf(repo))
         val fakeRepoRepository = FakeDataSource(fakePagingData)
         val repoRepository =  RepoRepository(fakeRepoRepository)

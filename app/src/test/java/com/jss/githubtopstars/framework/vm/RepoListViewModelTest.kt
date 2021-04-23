@@ -19,17 +19,13 @@ import org.mockito.Mockito.`when`
 @ExperimentalCoroutinesApi
 @ExperimentalPagingApi
 class RepoListViewModelTest {
-
-    @Mock
-    private val getAllReposMock = Mockito.mock(GetAllRepos::class.java)
-
-    @Mock
-    private val repoPageDataMock =  Mockito.mock(PagingData::class.java) as PagingData<Repo>
-
     @Test
     fun getReposList_returnAllRepos() = runBlockingTest {
+        val getAllReposMock = Mockito.mock(GetAllRepos::class.java)
+        val repoPageDataMock =  Mockito.mock(PagingData::class.java) as PagingData<Repo>
         `when`(getAllReposMock.invoke()).thenReturn(flowOf(repoPageDataMock))
         val useCases = UseCases(getAllReposMock)
+
         val repoListViewModel = RepoListViewModel(useCases)
         assertThat(repoListViewModel.getReposList().single(), `is`(repoPageDataMock))
     }
