@@ -19,7 +19,6 @@ interface GithubService {
     ): ReposResponseApi
 
     companion object {
-        private const val BASE_URL = "https://api.github.com"
         fun create(): GithubService {
             val logger = HttpLoggingInterceptor()
             logger.level = HttpLoggingInterceptor.Level.BASIC
@@ -28,7 +27,7 @@ interface GithubService {
                     .addInterceptor(logger)
                     .build()
             return Retrofit.Builder()
-                    .baseUrl(BASE_URL.toHttpUrlOrNull()!!)
+                    .baseUrl(Constants.GITHUB_BASE_URL.toHttpUrlOrNull()!!)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()

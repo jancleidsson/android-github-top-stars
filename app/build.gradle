@@ -100,7 +100,6 @@ dependencies {
     //Mockito framework
     testImplementation "org.mockito:mockito-core:$mockito_core_version"
     testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
-//    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito-inline:$dexmaker_mockito_inline"
 
     //Truth framework
     testImplementation "com.google.truth:truth:$truth_version"
@@ -115,11 +114,9 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
 
     //JUnit
-//    testImplementation "junit:junit:$junit_version"
-//    androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$junit_ext_version"
+    androidTestImplementation "androidx.test.ext:junit:$junit_ext_version"
 
     //Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
