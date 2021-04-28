@@ -4,4 +4,4 @@
 
  - The tests (unit and instrumented) were writen using libraries as Mokito, Mockk and Espresso.
 
-The main feature of this app is releted to perfor a query to the GitHub repositories API to seach and show the Kotlin repositories witch have more stars, besides it's create a local cache in database to avoid unnecessary request overloads.
+The main feature is perforing a query to the GitHub repositories API to seach and show the Kotlin repositories witch have more stars, besides it's create a local cache in database to avoid unnecessary request overloads.
