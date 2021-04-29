@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
-import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 
@@ -20,7 +19,7 @@ class ReposDataSourceTest {
         val repoListPageDataFlow = Mockito.mock(Flow::class.java) as Flow<PagingData<Repo>>
         `when`(repoPager.flow).thenReturn(repoListPageDataFlow)
 
-        val repoDataSource = ReposDataSource(repoPager)
+        val repoDataSource = RepoDataSource(repoPager)
         assertThat(repoDataSource.getAll(), `is` (repoListPageDataFlow))
     }
 }

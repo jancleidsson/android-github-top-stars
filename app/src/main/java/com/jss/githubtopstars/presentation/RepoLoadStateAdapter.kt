@@ -11,9 +11,9 @@ import com.jss.githubtopstars.R
 import com.jss.githubtopstars.databinding.ReposListStateFooterItemBinding
 import com.jss.githubtopstars.utils.Constants
 
-class ReposLoadStateAdapter(
+class RepoLoadStateAdapter(
         private val retry: () -> Unit,
-) : LoadStateAdapter<ReposLoadStateAdapter.ReposLoadStateViewHolder>() {
+) : LoadStateAdapter<RepoLoadStateAdapter.ReposLoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): ReposLoadStateViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.repos_list_state_footer_item, parent, false)

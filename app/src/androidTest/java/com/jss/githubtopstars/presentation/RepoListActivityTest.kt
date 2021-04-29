@@ -26,10 +26,10 @@ import org.junit.runner.RunWith
 @ExperimentalPagingApi
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class ReposListActivityTest() {
+class RepoListActivityTest() {
 
     @get:Rule
-    var activityScenarioRule = activityScenarioRule<ReposListActivity>()
+    var activityScenarioRule = activityScenarioRule<RepoListActivity>()
 
     private val context = ApplicationProvider.getApplicationContext<Context>()
     private val githubService = FakeGithubService()

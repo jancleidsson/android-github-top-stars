@@ -13,8 +13,8 @@ import com.jss.githubtopstars.core.data.Repo
 import com.jss.githubtopstars.databinding.RepoListItemBinding
 import com.jss.githubtopstars.utils.Constants
 
-class ReposPagingDataAdapter :
-        PagingDataAdapter<Repo, ReposPagingDataAdapter.RepoViewHolder>(RepositoryDiffCallback) {
+class RepoPagingDataAdapter :
+        PagingDataAdapter<Repo, RepoPagingDataAdapter.RepoViewHolder>(RepositoryDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder =
             RepoViewHolder(

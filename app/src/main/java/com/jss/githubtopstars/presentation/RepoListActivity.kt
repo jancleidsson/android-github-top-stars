@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ExperimentalPagingApi
-class ReposListActivity : AppCompatActivity() {
+class RepoListActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewMode: RepoListViewModel
@@ -28,7 +28,7 @@ class ReposListActivity : AppCompatActivity() {
         ReposListActivityBinding.inflate(layoutInflater)
     }
     private val reposListAdapter by lazy {
-        ReposPagingDataAdapter()
+        RepoPagingDataAdapter()
     }
 
     private var fetchApiJob: Job? = null
@@ -54,8 +54,8 @@ class ReposListActivity : AppCompatActivity() {
         binding.repoListRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = reposListAdapter.withLoadStateHeaderAndFooter(
-                    ReposLoadStateAdapter { reposListAdapter.retry() },
-                    ReposLoadStateAdapter { reposListAdapter.retry() }
+                    RepoLoadStateAdapter { reposListAdapter.retry() },
+                    RepoLoadStateAdapter { reposListAdapter.retry() }
             )
         }
 

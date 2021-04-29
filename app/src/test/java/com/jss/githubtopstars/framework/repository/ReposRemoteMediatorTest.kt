@@ -53,7 +53,7 @@ class ReposRemoteMediatorTest {
     private var pageList = listOf(PagingSource.LoadResult.Page(data = repoList, prevKey = 1, nextKey = 3))
     private var currentPagingState = PagingState(pageList, anchorPosition = 2, pagingConfig, leadingPlaceholderCount = 1)
 
-    private lateinit var reposRemoteMediator: ReposRemoteMediator
+    private lateinit var reposRemoteMediator: RepoRemoteMediator
 
     @Before
     fun initMocks() {
@@ -65,7 +65,7 @@ class ReposRemoteMediatorTest {
             transactionLambda.captured.invoke()
         }
 
-        reposRemoteMediator = ReposRemoteMediator(database = databaseService, service = githubService)
+        reposRemoteMediator = RepoRemoteMediator(database = databaseService, service = githubService)
 
         every { databaseService.repositoryDao() } returns repoDao
         every { databaseService.pageIndexDao() } returns pageIndexDao

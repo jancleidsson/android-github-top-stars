@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.jss.githubtopstars.framework.api.GithubService
 import com.jss.githubtopstars.framework.db.DatabaseService
-import com.jss.githubtopstars.framework.repository.ReposRemoteMediator
+import com.jss.githubtopstars.framework.repository.RepoRemoteMediator
 import com.jss.githubtopstars.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -18,7 +18,7 @@ class RepoPagerModule {
     fun provideRepoPager(githubService: GithubService, database: DatabaseService) =
         Pager(
             config = PagingConfig(pageSize = Constants.GITHUB_PAGE_SIZE, enablePlaceholders = false),
-            remoteMediator = ReposRemoteMediator(githubService, database),
+            remoteMediator = RepoRemoteMediator(githubService, database),
             pagingSourceFactory = { database.repositoryDao().getRepos() }
         )
 }

@@ -6,5 +6,5 @@ import org.junit.runners.Suite
 
 @ExperimentalPagingApi
 @RunWith(Suite::class)
-@Suite.SuiteClasses(ReposListActivityTest::class)
+@Suite.SuiteClasses(RepoListActivityTest::class)
 class RepoListPresentationTestSuit
