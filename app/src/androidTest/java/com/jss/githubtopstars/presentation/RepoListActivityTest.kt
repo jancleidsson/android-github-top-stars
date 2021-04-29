@@ -1,12 +1,15 @@
 package com.jss.githubtopstars.presentation
 
 import android.content.Context
+import android.view.View
+import android.widget.ImageView
 import androidx.paging.ExperimentalPagingApi
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.activityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -18,6 +21,7 @@ import com.jss.githubtopstars.framework.db.DatabaseService
 import com.jss.githubtopstars.utils.Constants
 import com.jss.githubtopstars.utils.FakeGithubService
 import com.jss.githubtopstars.utils.ServiceLocator
+import org.hamcrest.Description
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -64,11 +68,27 @@ class RepoListActivityTest() {
         onView(withId(R.id.repository_stargazers_count)).check(matches(withText(startsText)))
         onView(withId(R.id.repository_forks_count)).check(matches(withText(forksText)))
         onView(withId(R.id.repository_owner_name)).check(matches(withText(repo.owner.login)))
+        onView(withId(R.id.repository_owner_photo)).check(matches(hasDrawable()))
         onData(withId(R.id.footer_item_progress)).inAdapterView(withId(R.id.repo_list_recycler_view))
     }
 
     @Test
-    fun activeReposList_DisplayedLoadItemError() {
+    fun activeReposList_DisplayedLoadReposError_onAppLaunch() {
+        githubService.buildServiceResponse(throwsHTTPException = true)
 
+        activityScenarioRule.scenario.recreate()
+        onView(withId(R.id.retry_button)).check(matches(isDisplayed()))
+    }
+
+    private fun hasDrawable(): BoundedMatcher<View, ImageView> {
+        return object : BoundedMatcher<View, ImageView>(ImageView::class.java) {
+            override fun describeTo(description: Description?) {
+                description?.appendText("has drawable content")
+            }
+
+            override fun matchesSafely(item: ImageView?): Boolean {
+                return item?.drawable != null
+            }
+        }
     }
 }
