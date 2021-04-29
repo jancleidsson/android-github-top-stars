@@ -45,7 +45,7 @@ class ReposListActivityTest() {
     }
 
     @Test
-    fun activeReposList_DisplayedLoadViewOnInitialData() {
+    fun activeReposList_progressDisplayed_onAppLaunch() {
         githubService.buildServiceResponse(listOf(), 5000)
 
         activityScenarioRule.scenario.recreate()
@@ -53,7 +53,7 @@ class ReposListActivityTest() {
     }
 
     @Test
-    fun activeReposList_DisplayedLoadItemData() {
+    fun activeReposList_listItemDisplayed_onLoadData() {
         val repo = Repo(1, "jss", 1, 1, Owner("jss", ""))
         val startsText = context.getString(R.string.starts).plus(Constants.EMPTY_SPACE).plus(repo.stars)
         val forksText = context.getString(R.string.forks).plus(Constants.EMPTY_SPACE).plus(repo.forks)
@@ -65,5 +65,10 @@ class ReposListActivityTest() {
         onView(withId(R.id.repository_forks_count)).check(matches(withText(forksText)))
         onView(withId(R.id.repository_owner_name)).check(matches(withText(repo.owner.login)))
         onData(withId(R.id.footer_item_progress)).inAdapterView(withId(R.id.repo_list_recycler_view))
+    }
+
+    @Test
+    fun activeReposList_DisplayedLoadItemError() {
+
     }
 }
