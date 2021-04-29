@@ -7,9 +7,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
-// Runs repository init tests
+// Runs repository unit tests
 @ExperimentalCoroutinesApi
 @ExperimentalPagingApi
 @RunWith(Suite::class)
-@Suite.SuiteClasses(ReposDataSourceTest::class, RepoRepositoryTest::class)
+@Suite.SuiteClasses(ReposDataSourceTest::class, RepoRepositoryTest::class, RepoRepositoryTest::class)
 class UnitTestSuite
