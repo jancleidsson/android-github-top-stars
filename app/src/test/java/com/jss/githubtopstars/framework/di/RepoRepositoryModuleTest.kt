@@ -10,12 +10,12 @@ import org.junit.Assert.assertThat
 import org.junit.Test
 import org.mockito.Mockito.mock
 
-class RepositoryModuleTest {
+class RepoRepositoryModuleTest {
 
     @ExperimentalPagingApi
     @Test
     fun provideRepository() {
         val pager = mock(Pager::class.java) as Pager<Int, Repo>
-        assertThat(RepositoryModule().provideRepository(pager), `is`(any(RepoRepository::class.java)))
+        assertThat(RepoRepositoryModule().provideRepository(pager), `is`(any(RepoRepository::class.java)))
     }
 }

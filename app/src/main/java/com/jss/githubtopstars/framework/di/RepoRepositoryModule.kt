@@ -4,13 +4,13 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import com.jss.githubtopstars.core.data.Repo
 import com.jss.githubtopstars.core.repository.RepoRepository
-import com.jss.githubtopstars.framework.repository.RepoDataSource
+import com.jss.githubtopstars.framework.repository.RepoPagingDataSource
 import dagger.Module
 import dagger.Provides
 
 @Module
 @ExperimentalPagingApi
-class RepositoryModule {
+class RepoRepositoryModule {
     @Provides
-    fun provideRepository(repoPager: Pager<Int, Repo>) = RepoRepository(RepoDataSource(repoPager))
+    fun provideRepository(repoPager: Pager<Int, Repo>) = RepoRepository(RepoPagingDataSource(repoPager))
 }

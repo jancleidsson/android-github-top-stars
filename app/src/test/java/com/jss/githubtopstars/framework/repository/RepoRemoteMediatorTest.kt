@@ -28,7 +28,7 @@ import java.io.IOException
 
 @ExperimentalPagingApi
 @ExperimentalCoroutinesApi
-class ReposRemoteMediatorTest {
+class RepoRemoteMediatorTest {
     @MockK
     private lateinit var databaseService: DatabaseService
 

@@ -8,7 +8,7 @@ import javax.inject.Singleton
 
 @ExperimentalPagingApi
 @Singleton
-@Component(modules = [ApplicationModule::class, DatabaseServiceModule::class, GithubServiceModule::class, RepositoryModule::class, UsesCasesModule::class, RepoPagerModule::class])
+@Component(modules = [ApplicationModule::class, DatabaseServiceModule::class, GithubServiceModule::class, RepoRepositoryModule::class, UsesCasesModule::class, RepoPagerModule::class])
 interface ApplicationComponent {
     fun inject(repoListActivity: RepoListActivity)
 }

@@ -12,14 +12,14 @@ import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 
 @ExperimentalPagingApi
-class ReposDataSourceTest {
+class RepoPagingDataSourceTest {
     @Test
     fun getAll_returnAllRepos() {
         val repoPager = Mockito.mock(Pager::class.java) as Pager<Int, Repo>
         val repoListPageDataFlow = Mockito.mock(Flow::class.java) as Flow<PagingData<Repo>>
         `when`(repoPager.flow).thenReturn(repoListPageDataFlow)
 
-        val repoDataSource = RepoDataSource(repoPager)
+        val repoDataSource = RepoPagingDataSource(repoPager)
         assertThat(repoDataSource.getAll(), `is` (repoListPageDataFlow))
     }
 }
