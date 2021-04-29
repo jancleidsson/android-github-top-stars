@@ -1,13 +1,15 @@
 package com.jss.githubtopstars.presentation
 
 import android.content.Context
+import android.os.PowerManager
+import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
 import androidx.paging.ExperimentalPagingApi
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.pressKey
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -27,10 +29,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 @ExperimentalPagingApi
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class RepoListActivityTest() {
+class RepoListActivityTest {
 
     @get:Rule
     var activityScenarioRule = activityScenarioRule<RepoListActivity>()
@@ -46,6 +49,12 @@ class RepoListActivityTest() {
 
         ServiceLocator.githubService = githubService
         ServiceLocator.databaseService = databaseService
+
+        //Avoid screen off before test execution
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        if (powerManager.isInteractive.not()) {
+            onView(isRoot()).perform(pressKey(KeyEvent.KEYCODE_POWER))
+        }
     }
 
     @Test
@@ -69,7 +78,6 @@ class RepoListActivityTest() {
         onView(withId(R.id.repository_forks_count)).check(matches(withText(forksText)))
         onView(withId(R.id.repository_owner_name)).check(matches(withText(repo.owner.login)))
         onView(withId(R.id.repository_owner_photo)).check(matches(hasDrawable()))
-        onData(withId(R.id.footer_item_progress)).inAdapterView(withId(R.id.repo_list_recycler_view))
     }
 
     @Test

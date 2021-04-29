@@ -10,13 +10,13 @@ android {
 
     defaultConfig {
         applicationId "com.jss.githubtopstars"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 30
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.jss.githubtopstars.utils.CustomJUnitRunner"
     }
 
     buildTypes.release {
@@ -86,10 +86,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4_version"
     implementation "androidx.room:room-ktx:$room_version"
 
-    //Data store
-    implementation "androidx.datastore:datastore:$data_store_version"
-
-    //Multdex
+    //Multidex
     implementation "androidx.multidex:multidex:$multidex_version"
 
     // ----- Test dependencies ------
