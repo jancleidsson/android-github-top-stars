@@ -13,6 +13,7 @@ import com.jss.githubtopstars.databinding.ReposListActivityBinding
 import com.jss.githubtopstars.framework.di.ApplicationModule
 import com.jss.githubtopstars.framework.di.DaggerApplicationComponent
 import com.jss.githubtopstars.framework.vm.RepoListViewModel
+import com.jss.githubtopstars.utils.IdlingResourcesHelper
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -69,16 +70,26 @@ class RepoListActivity : AppCompatActivity() {
                     ?: loadState.prepend as? LoadState.Error
             errorState?.let {
                 Toast.makeText(this, getString(R.string.fetch_data_error), Toast.LENGTH_LONG).show()
+                IdlingResourcesHelper.decrementCounting()
             }
         }
     }
 
     private fun getRepos() {
-        fetchApiJob?.cancel()
+        fetchApiJob?.let {
+            it.cancel()
+            IdlingResourcesHelper.decrementCounting()
+        }
+
+        IdlingResourcesHelper.incrementCounting()
         fetchApiJob = lifecycleScope.launch {
             viewMode.getReposList().collectLatest { pagingDataSource ->
                 reposListAdapter.submitData(pagingDataSource)
             }
+        }
+
+        fetchApiJob!!.invokeOnCompletion {
+            IdlingResourcesHelper.decrementCounting()
         }
     }
 }
