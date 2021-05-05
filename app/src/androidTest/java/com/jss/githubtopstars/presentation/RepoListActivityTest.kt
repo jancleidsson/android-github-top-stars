@@ -90,12 +90,14 @@ class RepoListActivityTest {
     }
 
     @Test
-    fun activeReposList_listItemDisplayed_onLoadData() {
-        val reversedCount = Int.MAX_VALUE - 1
-        val repo = Repo(1, "jss 1", reversedCount, reversedCount, Owner("jss 1", ""))
+    fun activeReposList_listItemDisplayed_onLoadDataAfterFirstPage() {
+        val reversedCount = Int.MAX_VALUE - 51
+        val repo = Repo(51, "jss 51", reversedCount, reversedCount, Owner("jss 51", ""))
         val starts = context.getString(R.string.starts).plus(Constants.EMPTY_SPACE).plus(repo.stars)
         val forks = context.getString(R.string.forks).plus(Constants.EMPTY_SPACE).plus(repo.forks)
-        githubService.configServiceResponse(delay= 1000L, httpExceptionOnPage = 2)
+
+        //Use drawable test
+        githubService.configServiceResponse(delay= 1000L, responsePages = 2)
 
         activityScenarioRule.scenario.recreate()
         onView(withId(R.id.loading)).check(matches(not(isDisplayed())))
@@ -108,6 +110,12 @@ class RepoListActivityTest {
         )
         onView(withId(R.id.repo_list_recycler_view)).perform(
                 RecyclerViewActions.scrollTo<RepoPagingDataAdapter.RepoViewHolder>(hasDescendant(withText(forks)))
+        )
+        onView(withId(R.id.repo_list_recycler_view)).perform(
+                RecyclerViewActions.scrollTo<RepoPagingDataAdapter.RepoViewHolder>(hasDescendant(withText(repo.owner.login)))
+        )
+        onView(withId(R.id.repo_list_recycler_view)).perform(
+                RecyclerViewActions.scrollTo<RepoPagingDataAdapter.RepoViewHolder>(hasDescendant(withId(R.id.footer_item_progress)))
         )
     }
 

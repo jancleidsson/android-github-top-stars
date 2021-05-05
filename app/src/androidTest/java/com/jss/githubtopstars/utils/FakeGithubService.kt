@@ -14,6 +14,7 @@ class FakeGithubService : GithubService {
 
     private var mResponseDelay = 0L
     private var mHttpExceptionOnPage = 0
+    private var mResponsePages = 1
 
     @Throws(HttpException::class)
     override suspend fun getRepositories(
@@ -26,9 +27,10 @@ class FakeGithubService : GithubService {
         return ReposResponseApi(repoList.size, false, repoList)
     }
 
-    fun configServiceResponse(delay: Long = 0, httpExceptionOnPage: Int = 0) {
+    fun configServiceResponse(delay: Long = 0, httpExceptionOnPage: Int = 0, responsePages: Int = 1) {
         mResponseDelay = delay
         mHttpExceptionOnPage = httpExceptionOnPage
+        mResponsePages = responsePages
     }
 
     @Throws(HttpException::class)
@@ -39,10 +41,14 @@ class FakeGithubService : GithubService {
         }
 
         val repoList = ArrayList<Repo>()
-        for (index in 1..itemsPerPage) {
-            val currentIndex = index + ((page - 1) * itemsPerPage)
-            val reversedCount = Int.MAX_VALUE - currentIndex
-            repoList.add(Repo(currentIndex.toLong(), "jss $currentIndex", reversedCount, reversedCount, Owner("jss $currentIndex", "")))
+        if (page <= mResponsePages) {
+            for (index in 1..itemsPerPage) {
+                val currentIndex = index + ((page - 1) * itemsPerPage)
+                val reversedCount = Int.MAX_VALUE - currentIndex
+                repoList.add(Repo(currentIndex.toLong(), "jss $currentIndex", reversedCount, reversedCount, Owner("jss $currentIndex", "")))
+            }
+        } else {
+            IdlingResourcesHelper.decrementCounting()
         }
         return repoList
     }
